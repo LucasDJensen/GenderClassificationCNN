@@ -1,4 +1,6 @@
 # Importing all necessary libraries
+import os
+
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
@@ -7,10 +9,19 @@ from keras import backend as K
 
 img_width, img_height = 178, 218
 
-train_data_dir = 'training'
-validation_data_dir = 'validation'
-nb_train_samples = 492 + 385
-nb_validation_samples = 50 + 40
+train_data_dir = r'E:\img_align_celeba\img_align_celeba\Training'
+validation_data_dir = r'E:\img_align_celeba\img_align_celeba\Validation'
+
+
+def get_file_count(path):
+    count = 0
+    for root_dir, cur_dir, files in os.walk(path):
+        count += len(files)
+    return count
+
+
+nb_train_samples = get_file_count(train_data_dir)
+nb_validation_samples = get_file_count(validation_data_dir)
 epochs = 10
 batch_size = 16
 

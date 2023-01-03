@@ -6,8 +6,7 @@ from keras.utils import load_img
 
 model = load_model('model_saved.h5')
 
-dir_path = "D:\img_align_celeba\img_align_celeba"
-ai_splitted = os.path.join(dir_path, 'male')
+dir_path = "E:\img_align_celeba\img_align_celeba"
 for path in os.listdir(dir_path):
     # check if current path is a file
     join = os.path.join(dir_path, path)
