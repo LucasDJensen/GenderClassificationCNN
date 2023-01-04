@@ -4,9 +4,9 @@ import numpy as np
 from keras.models import load_model
 from keras.utils import load_img
 
-model = load_model('model_saved.h5')
+model = load_model('model_saved_6400_train_1600_validate.h5')
 
-dir_path = "E:\img_align_celeba\img_align_celeba"
+dir_path = "D:\img_align_celeba\img_align_celeba\AI_Test"
 for path in os.listdir(dir_path):
     # check if current path is a file
     join = os.path.join(dir_path, path)
@@ -18,9 +18,9 @@ for path in os.listdir(dir_path):
         label = model.predict(img)
         # print("Predicted Class (0 - female , 1- male): ", label[0][0], join)
         if label[0][0] < 0.5:
-            sub = 'ai_female'
+            sub = 'female'
         else:
-            sub = 'ai_male'
+            sub = 'male'
         # print(join)
         li = os.path.split(join)
         joined_pa = os.path.join(li[0], sub, li[1])

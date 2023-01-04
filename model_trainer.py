@@ -9,8 +9,9 @@ from keras import backend as K
 
 img_width, img_height = 178, 218
 
-train_data_dir = r'E:\img_align_celeba\img_align_celeba\Training'
-validation_data_dir = r'E:\img_align_celeba\img_align_celeba\Validation'
+dir = r'D:\img_align_celeba\img_align_celeba'
+train_data_dir = r'%s\Training' % dir
+validation_data_dir = r'%s\Validation' % dir
 
 
 def get_file_count(path):
@@ -22,6 +23,8 @@ def get_file_count(path):
 
 nb_train_samples = get_file_count(train_data_dir)
 nb_validation_samples = get_file_count(validation_data_dir)
+print(f'{nb_train_samples=}')
+print(f'{nb_validation_samples=}')
 epochs = 10
 batch_size = 16
 
