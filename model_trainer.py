@@ -9,9 +9,9 @@ from keras import backend as K
 
 img_width, img_height = 178, 218
 
-dir = r'D:\img_align_celeba\img_align_celeba'
-train_data_dir = r'%s\Training' % dir
-validation_data_dir = r'%s\Validation' % dir
+dir_path = r'C:\Users\Lucas\Pictures\02461 Pictures'
+train_data_dir = r'%s\Training' % dir_path
+validation_data_dir = r'%s\Validation' % dir_path
 
 
 def get_file_count(path):

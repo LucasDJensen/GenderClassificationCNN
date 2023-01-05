@@ -1,7 +1,7 @@
 import os
 
-true_classification_path = r'D:\img_align_celeba\img_align_celeba\Testing'
-ai_classified_path = r'D:\img_align_celeba\img_align_celeba\AI_Test'
+true_classification_path = r'C:\Users\Lucas\Pictures\02461 Pictures\Testing'
+ai_classified_path = r'C:\Users\Lucas\Pictures\02461 Pictures\AI_Test'
 
 males = []
 females = []
@@ -34,6 +34,6 @@ for file in females:
 
     should_have_been_sorted_to_female.append(file)
 
-accuracy = len(should_have_been_sorted_to_female) + len(should_have_been_sorted_to_male) / (len(males) + len(
-    females)) * 100
-print('accuracy', str(accuracy) + '%')
+accuracy = (len(should_have_been_sorted_to_female) + len(should_have_been_sorted_to_male)) / (len(males) + len(
+    females)) - 1
+print('accuracy', str(round(abs(accuracy * 100), 2)) + '%')
