@@ -5,7 +5,7 @@ from keras.models import load_model
 from keras.utils import load_img
 
 dir_path = r'C:\Users\Lucas\Pictures\02461 Pictures\AI_Test'
-model = load_model(r'trained_models/model_saved_6400_train_1600_validate.h5')
+model = load_model(r'trained_models/model_saved_6400x1600_e22.h5')
 male_folder_name = 'male'
 female_folder_name = 'female'
 
@@ -24,7 +24,7 @@ for path in os.listdir(dir_path):
         img = img / 255.0
         img = img.reshape(1, 178, 218, 3)
         label = model.predict(img)
-        # print("Predicted Class (0 - female , 1- male): ", label[0][0], join)
+        print("Predicted Class (0 - female , 1- male): ", label[0][0], join)
         if label[0][0] < 0.5:
             sub = female_folder_name
         else:

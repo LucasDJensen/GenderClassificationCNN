@@ -1,5 +1,7 @@
 # Importing all necessary libraries
 import os
+import sys
+import traceback
 
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
@@ -7,11 +9,29 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
 
-img_width, img_height = 178, 218
+with open('logs.log', "a") as log_file:
+    old_stdout = sys.stdout
+    sys.stdout = log_file
 
-dir_path = r'C:\Users\Lucas\Pictures\02461 Pictures'
-train_data_dir = r'%s\Training' % dir_path
-validation_data_dir = r'%s\Validation' % dir_path
+    try:
+        print('hello')
+        print('Successfully completed execution.')
+    except:
+        print(traceback.format_exc())
+    finally:
+        sys.stdout = old_stdout
+        log_file.flush()
+
+img_width, img_height = 178, 218
+app_mode = os.getenv('AppMode', None)
+if app_mode:
+    dir_path = '/app/data'
+    train_data_dir = os.path.join(dir_path, 'Training')
+    validation_data_dir = os.path.join(dir_path, 'Validation')
+else:
+    dir_path = r'C:\Users\Lucas\Pictures\02461 Pictures'
+    train_data_dir = r'%s\Training' % dir_path
+    validation_data_dir = r'%s\Validation' % dir_path
 
 
 def get_file_count(path):
@@ -34,15 +54,16 @@ else:
     input_shape = (img_width, img_height, 3)
 
 model = Sequential()
-model.add(Conv2D(32, (2, 2), input_shape=input_shape))
+kernel_size = (3, 3)
+model.add(Conv2D(32, kernel_size, input_shape=input_shape))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Conv2D(32, (2, 2)))
+model.add(Conv2D(32, kernel_size))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Conv2D(64, (2, 2)))
+model.add(Conv2D(64, kernel_size))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -77,12 +98,13 @@ validation_generator = test_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='binary')
 
-model.fit_generator(
+model.fit(
     train_generator,
     steps_per_epoch=nb_train_samples // batch_size,
     epochs=epochs,
     validation_data=validation_generator,
-    validation_steps=nb_validation_samples // batch_size)
+    validation_steps=nb_validation_samples // batch_size
+)
 
 model.save('model_saved.h5')
 model.save_weights('model_saved_weights.h5')
